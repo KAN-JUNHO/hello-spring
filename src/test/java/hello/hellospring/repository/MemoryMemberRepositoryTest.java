@@ -1,10 +1,8 @@
 package hello.hellospring.repository;
 
 import hello.hellospring.domain.Member;
-import hello.hellospring.domain.repository.MemoryMemberRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

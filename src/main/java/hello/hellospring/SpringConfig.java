@@ -1,9 +1,8 @@
 package hello.hellospring;
 
-import hello.hellospring.domain.repository.MemberRepository;
-import hello.hellospring.domain.repository.MemoryMemberRepository;
+import hello.hellospring.repository.MemberRepository;
+import hello.hellospring.repository.MemoryMemberRepository;
 import hello.hellospring.service.MemberService;
-import org.springframework.boot.autoconfigure.batch.BatchDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
