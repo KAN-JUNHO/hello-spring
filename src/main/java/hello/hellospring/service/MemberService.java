@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+
 @Transactional
 public class MemberService {
 
@@ -17,9 +18,17 @@ public class MemberService {
 
 
     public Long join(Member member){
-        validateDuplicateMember(member);//중복확인
-        memberRepository.save(member);
-        return member.getId();
+        long start = System.currentTimeMillis();
+        try {
+            validateDuplicateMember(member);//중복확인
+            memberRepository.save(member);
+            return member.getId();
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish-start;
+            System.out.println("join = "+timeMs+"Ms");
+        }
+
     }
 
     private void validateDuplicateMember(Member member) {
@@ -30,7 +39,15 @@ public class MemberService {
     }
     //전체조회
     public List<Member> findMembers(){
-        return memberRepository.findAll();
+        long start = System.currentTimeMillis();
+        try {
+            return memberRepository.findAll();
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish-start;
+            System.out.println("findMembers = "+timeMs+"Ms");
+        }
+
     }
     public Optional<Member> findOne(Long memberId){
         return memberRepository.findById(memberId);
