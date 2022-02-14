@@ -1,6 +1,8 @@
 package hello.hellospring.repository;
 
+
 import hello.hellospring.domain.Member;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -15,10 +17,11 @@ import java.util.Map;
 import java.util.Optional;
 
 public class JdbcTemplateMemberRepository implements MemberRepository{
+
     private final JdbcTemplate jdbcTemplate;
 
     public JdbcTemplateMemberRepository(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     @Override
@@ -36,21 +39,20 @@ public class JdbcTemplateMemberRepository implements MemberRepository{
 
     @Override
     public Optional<Member> findById(Long id) {
-        List<Member> result = jdbcTemplate.query("select * from member where id = ?", memberRowMapper(), id);
+        List<Member> result = jdbcTemplate.query("select * from member where id = ?", memberRowMapper(),id);
         return result.stream().findAny();
     }
 
     @Override
     public Optional<Member> findByName(String name) {
-        List<Member> result = jdbcTemplate.query("select * from member where name=?", memberRowMapper(),name);
-        return result.stream().findAny();
-    }
+        List<Member> result = jdbcTemplate.query("select * from member where name = ?", memberRowMapper(),name);
+        return result.stream().findAny();    }
 
     @Override
     public List<Member> findAll() {
-        return jdbcTemplate.query("selct * from member",memberRowMapper());
+        return jdbcTemplate.query("select * from member",memberRowMapper());
     }
-    private RowMapper<Member> memberRowMapper(){
+    private  RowMapper<Member> memberRowMapper(){
         return (rs, rowNum) -> {
             Member member = new Member();
             member.setId(rs.getLong("id"));
